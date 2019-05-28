@@ -19,18 +19,24 @@ from .models import Product
 #     return render(request, "products/product_create.html", context)
 
 def product_create_view(request):
-    form = ProductForm(request.POST or None)
+    form = RawProductForm(request.POST or None)
     if form.is_valid():
         form.save()
-        form = ProductForm()
+        form = RawProductForm()
     context = {
         'form': form
     }
     return render(request, "products/product_create.html", context)
 
 def product_detail_view(request):
-    obj = Product.objects.get(id=1)
-    context = {
-        'object': obj
-    }
+    obj = Product.objects.get(id=53)
+    
+    if obj != None and obj !='':
+        context = {
+            'object': obj
+        }
+    else:
+        context = {
+            'object': None
+        }
     return render(request, "products/product_detail.html", context)
